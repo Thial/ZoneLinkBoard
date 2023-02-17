@@ -9,9 +9,10 @@ jobs:
     name: Execute
     runs-on: ubuntu-latest
     steps:
-    - name: Compute variables
-      id: var1
-      run: echo ::set-output name=issue_title::'`[${{github.event.issue.title}}](${{github.event.issue.html_url}})`'
+    - name: Set ISSUE_TITLE
+      run: echo "ISSUE_TITLE=`[${{github.event.issue.title}}](${{github.event.issue.html_url}})`" >> $GITHUB_ENV
+    - name: Set ISSUE_BODY
+      run: echo "ISSUE_TITLE=${{toJSON(github.event.issue.body)}}" >> $GITHUB_ENV
     - name: Compute issue_body
       id: var2
       run: echo ::set-output name=issue_title::toJSON(github.event.issue.body)
@@ -20,5 +21,5 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         DISCORD_USERNAME: Zone Link - Board
         DISCORD_AVATAR: https://zonelink.net/github_board.png
-        DISCORD_EMBEDS: '[{"title":"Task Created", "color": 0, "description": "${{steps.var1.outputs.issue_title}}\n${{steps.var2.outputs.issue_body}}" }]'
+        DISCORD_EMBEDS: '[{"title":"Task Created", "color": 0, "description": "$ISSUE_TITLE\n$ISSUE_BODY" }]'
       uses: Ilshidur/action-discord@master
