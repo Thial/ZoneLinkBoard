@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set ISSUE_TITLE
-      run: echo "ISSUE_TITLE=`[${{github.event.issue.title}}](${{github.event.issue.html_url}})`" >> $GITHUB_ENV
+      run: echo "ISSUE_TITLE='`[${{github.event.issue.title}}](${{github.event.issue.html_url}})`'" >> $GITHUB_ENV
     - name: Set ISSUE_BODY
       run: echo "ISSUE_TITLE=${{toJSON(github.event.issue.body)}}" >> $GITHUB_ENV
     - name: Discord notification
