@@ -1,0 +1,19 @@
+name: issue_in_progress
+on:
+  issues:
+    types:
+      - moved_columns_in_project
+
+jobs:
+  build:
+    name: Execute
+    if: github.event.issue.column_name == "In Progress"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        DISCORD_USERNAME: Zone Link - Board
+        DISCORD_AVATAR: https://zonelink.net/github_board.png
+        DISCORD_EMBEDS: '[{"title":"Task In Progress - ${{github.event.issue.title}}", "color": 5763719, "url": "${{github.event.issue.html_url}}" }]'
+      uses: Ilshidur/action-discord@master
