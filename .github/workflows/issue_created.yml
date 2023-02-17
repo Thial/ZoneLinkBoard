@@ -14,5 +14,5 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         DISCORD_USERNAME: Zone Link - Board
         DISCORD_AVATAR: https://zonelink.net/github_board.png
-        DISCORD_EMBEDS: '[{"title":"Task Created", "color": 0, "description": "**[${{github.event.issue.title}}](${{github.event.issue.html_url}})**" }]'
+        DISCORD_EMBEDS: '[{"title":"Task Created - {{github.event.issue.title}}", "color": 0, "url": "${{github.event.issue.html_url}}" }]'
       uses: Ilshidur/action-discord@master
